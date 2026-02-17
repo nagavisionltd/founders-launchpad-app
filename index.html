@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Founders' Launchpad | Ellipsis Capital</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .premium-gradient {
+            background: linear-gradient(135deg, #3b82f6 0%, #2dd4bf 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .btn-premium {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-premium:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 20px 30px -10px rgba(59, 130, 246, 0.5);
+        }
+        .glass-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .urgency-banner {
+            background: linear-gradient(90deg, #1e3a8a 0%, #1e40af 100%);
+        }
+        /* Fixed Header Logic */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 50;
+        }
+        /* Modal Styles */
+        #orderModal {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        #orderModal.active {
+            display: flex;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-[#020617] text-slate-200 antialiased selection:bg-blue-500 selection:text-white">
+
+    <!-- Integrated Sticky Header -->
+    <header class="border-b border-white/5 bg-[#020617]/90 backdrop-blur-xl">
+        <!-- Urgency Top Bar (Now inside header to prevent gaps) -->
+        <div class="urgency-banner py-2 text-center text-[10px] font-bold uppercase tracking-[0.2em] text-blue-200 border-b border-blue-500/20">
+            Limited Capacity: Only 3 Launch Slots Remaining for January
+        </div>
+        
+        <!-- Main Nav -->
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex items-center gap-3">
+                    <div class="h-10 w-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-900/20">
+                        <i data-lucide="rocket" class="text-white h-6 w-6"></i>
+                    </div>
+                    <span class="font-bold text-2xl tracking-tight text-white">Ellipsis <span class="text-blue-500">Launchpad</span></span>
+                </div>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#bundle" class="text-sm font-medium hover:text-blue-400 transition-colors">The Bundle</a>
+                    <button onclick="toggleModal()" class="px-6 py-2.5 btn-premium rounded-full font-bold text-sm text-white">Claim Your Slot</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero (Padding adjusted for fixed header) -->
+    <section class="relative pt-52 pb-24 overflow-hidden">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none">
+            <div class="absolute -top-24 -left-24 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px]"></div>
+            <div class="absolute top-1/2 -right-24 w-[400px] h-[400px] bg-teal-500/10 rounded-full blur-[120px]"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-4xl mx-auto">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-blue-500/20 bg-blue-500/5 text-blue-400 text-xs font-bold uppercase tracking-widest mb-8">
+                    Built for UK Founders by Founders
+                </div>
+                <h1 class="text-6xl md:text-8xl font-extrabold text-white tracking-tighter mb-8 leading-[1.1]">
+                    Stop Waiting. <br><span class="premium-gradient">Start Pitching.</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-slate-400 mb-12 leading-relaxed">
+                    We build your high-end Brand, Site, and Investor Deck in 7 days for £199. You focus on the product, we handle the <span class="text-white underline decoration-blue-500 underline-offset-4">fundability.</span>
+                    <span class="block mt-4 text-slate-300">
+                        Already have a v1? <span class="text-teal-400 font-bold uppercase tracking-wide text-lg">We do Premium Rebrands & Uplifts.</span>
+                    </span>
+                </p>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+                    <button onclick="toggleModal()" class="w-full sm:w-auto px-10 py-5 btn-premium rounded-2xl text-lg font-bold text-white flex items-center justify-center gap-3">
+                        Launch for £199 <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                    </button>
+                    <div class="text-left">
+                        <div class="flex items-center gap-1 text-yellow-500 mb-1">
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        </div>
+                        <span class="text-xs text-slate-500 uppercase font-bold">Voted #1 Starter Kit for 2026</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Bundle Grid -->
+    <section id="bundle" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-white">The "Idea-to-Market" Stack</h2>
+                <p class="text-slate-400 mt-2 text-sm uppercase tracking-widest">Everything you need, nothing you don't.</p>
+            </div>
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="glass-card p-10 rounded-[2.5rem] relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i data-lucide="palette" class="w-24 h-24"></i>
+                    </div>
+                    <div class="h-14 w-14 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-8 border border-blue-500/20">
+                        <i data-lucide="pen-tool" class="text-blue-400 w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">VC-Grade Identity</h3>
+                    <p class="text-slate-400 leading-relaxed">A custom logo and brand guide that makes you look like a Series A company before you even raise a seed round.</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="glass-card p-10 rounded-[2.5rem] relative overflow-hidden group border-blue-500/30 ring-1 ring-blue-500/20">
+                    <div class="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i data-lucide="layout" class="w-24 h-24"></i>
+                    </div>
+                    <div class="h-14 w-14 bg-teal-500/10 rounded-2xl flex items-center justify-center mb-8 border border-teal-500/20 text-teal-400">
+                        <i data-lucide="globe" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Conversion Engine</h3>
+                    <p class="text-slate-400 leading-relaxed">A lightning-fast, conversion-optimized landing page designed to capture leads and showcase your MVP to the world.</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="glass-card p-10 rounded-[2.5rem] relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i data-lucide="presentation" class="w-24 h-24"></i>
+                    </div>
+                    <div class="h-14 w-14 bg-purple-500/10 rounded-2xl flex items-center justify-center mb-8 border border-purple-500/20 text-purple-400">
+                        <i data-lucide="bar-chart-3" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Investment Blueprint</h3>
+                    <p class="text-slate-400 leading-relaxed">A 10-slide deck structured using VC-winning psychology. We don't just design it; we ensure the narrative is SEIS/EIS ready.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Real Examples Section -->
+    <section class="py-24 bg-slate-900/50 relative border-y border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-white">Built to Raise.</h2>
+                <p class="text-slate-400 mt-2 text-sm uppercase tracking-widest">Everything you need to launch in 7 days</p>
+            </div>
+
+            <div class="relative group">
+                <!-- Combined Carousel Container -->
+                <div id="deckCarousel" class="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-12 scrollbar-hide scroll-smooth">
+                    
+                    <!-- 1. Logo Sheet -->
+                    <div class="snap-center shrink-0 w-[90vw] md:w-[800px] aspect-[16/9] rounded-3xl overflow-hidden border border-white/15 bg-white shadow-2xl relative">
+                        <img src="assets/logos/logo1.png" class="w-full h-full object-cover">
+                        <div class="absolute bottom-4 left-6 bg-black/60 backdrop-blur-md px-4 py-2 rounded-full border border-white/10">
+                            <span class="text-white text-xs font-bold uppercase tracking-widest">Brand Identity</span>
+                        </div>
+                    </div>
+
+                    <!-- 2. Main Pitch Deck Cover -->
+                    <div class="snap-center shrink-0 w-[90vw] md:w-[800px] aspect-[16/9] rounded-3xl overflow-hidden border border-white/15 bg-[#020617] shadow-2xl relative">
+                        <img src="assets/pitch_deck/slide1.png" class="w-full h-full object-cover">
+                        <div class="absolute bottom-4 left-6 bg-black/60 backdrop-blur-md px-4 py-2 rounded-full border border-white/10">
+                            <span class="text-white text-xs font-bold uppercase tracking-widest">Investor Deck</span>
+                        </div>
+                    </div>
+
+                    <!-- 4. White Nike Aether Deck Cover -->
+                    <div class="snap-center shrink-0 w-[90vw] md:w-[800px] aspect-[16/9] rounded-3xl overflow-hidden border border-white/15 bg-white shadow-2xl relative">
+                        <img src="assets/pitch_deck/slide7.png" class="w-full h-full object-cover">
+                        <div class="absolute bottom-4 left-6 bg-black/60 backdrop-blur-md px-4 py-2 rounded-full border border-white/10">
+                            <span class="text-white text-xs font-bold uppercase tracking-widest">Investor Deck (Alt)</span>
+                        </div>
+                    </div>
+
+                    <!-- 5. Website Hero -->
+                    <div class="snap-center shrink-0 w-[90vw] md:w-[800px] aspect-[16/9] rounded-3xl overflow-hidden border border-white/15 bg-black shadow-2xl relative">
+                        <img src="assets/websites/site_hero.png" class="w-full h-full object-cover">
+                        <div class="absolute bottom-4 left-6 bg-black/60 backdrop-blur-md px-4 py-2 rounded-full border border-white/10">
+                            <span class="text-white text-xs font-bold uppercase tracking-widest">Website Hero</span>
+                        </div>
+                    </div>
+
+                    <!-- 6. Nike Launch Cover -->
+                    <div class="snap-center shrink-0 w-[90vw] md:w-[800px] aspect-[16/9] rounded-3xl overflow-hidden border border-white/15 bg-white shadow-2xl relative">
+                        <img src="assets/pitch_deck/slide8.png" class="w-full h-full object-cover">
+                        <div class="absolute bottom-4 left-6 bg-black/60 backdrop-blur-md px-4 py-2 rounded-full border border-white/10">
+                            <span class="text-white text-xs font-bold uppercase tracking-widest">Investor Deck (Nike)</span>
+                        </div>
+                    </div>
+
+                    <!-- 7. Nike Product Bento -->
+                    <div class="snap-center shrink-0 w-[90vw] md:w-[800px] aspect-[16/9] rounded-3xl overflow-hidden border border-white/15 bg-white shadow-2xl relative">
+                        <img src="assets/pitch_deck/slide9.png" class="w-full h-full object-cover">
+                        <div class="absolute bottom-4 left-6 bg-black/60 backdrop-blur-md px-4 py-2 rounded-full border border-white/10">
+                            <span class="text-white text-xs font-bold uppercase tracking-widest">Product Bento</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Controls -->
+                <div class="flex justify-center gap-4">
+                    <button onclick="scrollDeck(-1)" class="h-14 w-14 glass-card rounded-full flex items-center justify-center text-white hover:bg-blue-600 transition-all border border-white/10 shadow-xl active:scale-95">
+                        <i data-lucide="chevron-left" class="w-6 h-6"></i>
+                    </button>
+                    <button onclick="scrollDeck(1)" class="h-14 w-14 glass-card rounded-full flex items-center justify-center text-white hover:bg-blue-600 transition-all border border-white/10 shadow-xl active:scale-95">
+                        <i data-lucide="chevron-right" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Pricing CTA -->
+    <section id="order" class="py-32 relative">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="glass-card rounded-[3rem] p-12 text-center border-blue-500/20 bg-gradient-to-b from-blue-900/10 to-transparent shadow-3xl">
+                <h2 class="text-4xl md:text-5xl font-black text-white mb-4">Ready to Launch?</h2>
+                <p class="text-blue-400 font-bold text-lg mb-8 tracking-widest uppercase italic underline decoration-blue-500/50">One-Time Launch Price</p>
+                
+                <div class="flex justify-center items-end gap-2 mb-4">
+                    <span class="text-slate-500 text-3xl line-through">£850</span>
+                    <span class="text-7xl font-black text-white">£199</span>
+                </div>
+                <p class="text-slate-400 mb-6 max-w-md mx-auto">Get your professional presence live in 7 days. Limited to the first 5 sign-ups this week.</p>
+                
+                <!-- Bottom Rebrand Notice -->
+                <div class="mb-12 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-teal-500/10 border border-teal-500/20">
+                    <i data-lucide="refresh-cw" class="w-4 h-4 text-teal-400"></i>
+                    <span class="text-sm text-slate-300">Already have a v1? <span class="text-teal-400 font-bold uppercase tracking-wider">Premium Rebrands & Uplifts Available.</span></span>
+                </div>
+                
+                <button onclick="toggleModal()" class="w-full max-w-md btn-premium py-5 rounded-2xl text-xl font-bold text-white shadow-2xl shadow-blue-500/20">
+                    Secure Your Launch Slot
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lead Capture Modal -->
+    <div id="orderModal" class="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm">
+        <div class="glass-card w-full max-w-2xl rounded-[2.5rem] p-8 md:p-12 relative overflow-hidden border-blue-500/30">
+            <!-- Close Button -->
+            <button onclick="toggleModal()" class="absolute top-6 right-6 text-slate-500 hover:text-white transition-colors">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+
+            <div class="mb-8">
+                <h3 class="text-3xl font-black text-white mb-2">Claim Your Slot</h3>
+                <p class="text-slate-400">Tell us about your vision. We'll handle the rest.</p>
+            </div>
+
+            <form id="launchForm" class="space-y-4">
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-[10px] uppercase font-bold text-blue-400 mb-1 tracking-widest">Full Name</label>
+                        <input type="text" required name="name" placeholder="John Doe" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase font-bold text-blue-400 mb-1 tracking-widest">Email Address</label>
+                        <input type="email" required name="email" placeholder="john@startup.com" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors">
+                    </div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-[10px] uppercase font-bold text-blue-400 mb-1 tracking-widest">Phone Number</label>
+                        <input type="tel" required name="phone" placeholder="+44 7XXX XXXXXX" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase font-bold text-blue-400 mb-1 tracking-widest">Brand/Company Name</label>
+                        <input type="text" required name="company" placeholder="Acme Inc." class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-[10px] uppercase font-bold text-blue-400 mb-1 tracking-widest">The Idea / Business Details</label>
+                    <textarea required name="details" rows="3" placeholder="Briefly describe what you're building..." class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors resize-none"></textarea>
+                </div>
+
+                <div class="pt-4">
+                    <button type="submit" class="w-full btn-premium py-4 rounded-xl font-bold text-white flex items-center justify-center gap-2">
+                        Continue to Payment (£199) <i data-lucide="credit-card" class="w-5 h-5"></i>
+                    </button>
+                    <p class="text-center text-[10px] text-slate-500 mt-4 uppercase tracking-widest">Secure Checkout via Stripe</p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-white/5 text-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+             <div class="flex justify-center items-center gap-2 mb-6">
+                <div class="h-6 w-6 bg-blue-600 rounded flex items-center justify-center">
+                    <i data-lucide="rocket" class="text-white h-3 w-3"></i>
+                </div>
+                <span class="font-bold text-lg text-white">Ellipsis Launchpad</span>
+            </div>
+            <p class="text-slate-500 text-sm">© 2026 Ellipsis Capital. Part of the Ellipsis Venture Ecosystem.</p>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        // Carousel Logic
+        const container = document.getElementById('deckCarousel');
+        let autoScrollInterval;
+        let isPaused = false;
+
+        function scrollDeck(direction) {
+            const scrollAmount = container.offsetWidth; 
+            const maxScroll = container.scrollWidth - container.clientWidth;
+            
+            let newScrollPos = container.scrollLeft + (direction * scrollAmount);
+
+            if (newScrollPos > maxScroll + 50) {
+                container.scrollTo({ left: 0, behavior: 'smooth' });
+            } else if (newScrollPos < -50) {
+                container.scrollTo({ left: maxScroll, behavior: 'smooth' });
+            } else {
+                container.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+            }
+        }
+
+        function startAutoScroll() {
+            autoScrollInterval = setInterval(() => {
+                if (!isPaused) {
+                    scrollDeck(1);
+                }
+            }, 4000); // 4 seconds
+        }
+
+        container.addEventListener('mouseenter', () => isPaused = true);
+        container.addEventListener('mouseleave', () => isPaused = false);
+        container.addEventListener('touchstart', () => isPaused = true);
+        container.addEventListener('touchend', () => isPaused = false);
+
+        // Start on load
+        startAutoScroll();
+
+        function toggleModal() {
+            const modal = document.getElementById('orderModal');
+            if (modal.classList.contains('active')) {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            } else {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        document.getElementById('launchForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const btn = this.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            
+            // Show Loading
+            btn.disabled = true;
+            btn.innerHTML = 'Initializing Launch... <i class="animate-spin ml-2" data-lucide="loader-2"></i>';
+            lucide.createIcons();
+            
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
+            
+            try {
+                const response = await fetch('checkout.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (result.status === 'success' && result.redirect_url) {
+                    btn.innerHTML = 'Redirecting to Stripe...';
+                    window.location.href = result.redirect_url;
+                } else {
+                    throw new Error(result.message || 'Unknown error');
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Connection issue. Please try again or contact support.');
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+            }
+        });
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('orderModal');
+            if (event.target == modal) {
+                toggleModal();
+            }
+        }
+    </script>
+    <script src="https://ellipsiscapital.co.uk/founders-forge/embed-agent.js"></script>
+</body>
+</html>
