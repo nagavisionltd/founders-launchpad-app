@@ -72,7 +72,7 @@
         </nav>
     </header>
 
-    <main>
+    <main class="h-screen overflow-y-auto scroll-smooth">
         <!-- Hero -->
         <section class="relative pt-52 pb-24 overflow-hidden min-h-screen flex items-center">
             <div class="absolute inset-0 z-0 overflow-hidden">
@@ -273,7 +273,7 @@
 
             if (!slider) return;
 
-            fetch('assets_v2/portfolio.json?v=2026_v3')
+            fetch('assets_v2/portfolio.json?v=2026_v4')
                 .then(response => response.json())
                 .then(data => {
                     slides = data.slides;
@@ -284,7 +284,7 @@
 
                     slides.forEach((slideItems, index) => {
                         const slideEl = document.createElement('div');
-                        slideEl.className = 'w-full flex-shrink-0 grid grid-cols-2 md:grid-cols-3 gap-4 px-2';
+                        slideEl.className = 'w-full flex-shrink-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-2';
                         
                         let itemHTML = '';
                         slideItems.forEach(item => {
