@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 $team_email = "hello@ellipsiscapital.co.uk"; // Notification goes here
 $from_email = "team@ellipsiscapital.co.uk";
 $stripe_url = "https://buy.stripe.com/00w4gy55G8tk7gV2oc7ss05"; // Launchpad Product Link
-$calendly_link = "https://calendly.com/ellipsis-capital/strategy-kickoff"; // Placeholder
+$scheduler_url = "https://ellipsiscapital.co.uk/founders-launchpad/scheduler.html?name=" . urlencode($name) . "&email=" . urlencode($email) . "&company=" . urlencode($company);
 
 // Get JSON Input
 $input = file_get_contents('php://input');
@@ -53,7 +53,7 @@ $details
 
 ---------------------------------
 Status: Redirected to Stripe for payment.
-Action Required: Wait for payment confirmation, then check if they booked via Calendly.
+Action Required: Wait for payment confirmation, then check if they booked via the in-house scheduler.
 ";
 
 $team_headers = "From: $from_email\r\n";
@@ -79,7 +79,7 @@ We have received your details for $company.
 2. **Book Your Strategy Kickoff**: This is where we align on your vision, style, and narrative.
 
 👉 **Book your 30-min session here:**
-$calendly_link
+$scheduler_url
 
 We look forward to speaking with you.
 
