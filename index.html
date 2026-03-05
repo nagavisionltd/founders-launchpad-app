@@ -273,7 +273,7 @@
 
             if (!slider) return;
 
-            fetch('assets_v2/portfolio.json')
+            fetch('assets_v2/portfolio.json?v=2026_v2')
                 .then(response => response.json())
                 .then(data => {
                     slides = data.slides;
