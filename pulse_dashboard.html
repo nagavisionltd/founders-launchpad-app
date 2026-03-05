@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Founders' Pulse | NagaVision Lead Engine</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #020617; color: #e2e8f0; }
+        .glass-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .premium-gradient {
+            background: linear-gradient(135deg, #3b82f6 0%, #2dd4bf 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .status-badge {
+            padding: 2px 8px;
+            border-radius: 99px;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .status-active { background: rgba(45, 212, 191, 0.1); color: #2dd4bf; border: 1px solid rgba(45, 212, 191, 0.2); }
+        .status-pending { background: rgba(245, 158, 11, 0.1); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.2); }
+    </style>
+</head>
+<body class="min-h-screen flex overflow-hidden">
+
+    <!-- Sidebar -->
+    <aside class="w-64 border-r border-white/5 bg-[#020617]/50 flex flex-col">
+        <div class="p-6 border-b border-white/5">
+            <div class="flex items-center gap-3 mb-2">
+                <div class="h-8 w-8 bg-blue-600 rounded-lg flex items-center justify-center shadow-lg shadow-blue-900/20">
+                    <i data-lucide="zap" class="text-white h-5 w-5"></i>
+                </div>
+                <span class="font-bold text-lg tracking-tight text-white italic">Founders' Pulse</span>
+            </div>
+            <p class="text-[10px] text-slate-500 uppercase font-bold tracking-[0.2em]">Internal Engine v1.0</p>
+        </div>
+        
+        <nav class="flex-grow p-4 space-y-2">
+            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20 font-bold text-sm">
+                <i data-lucide="layout-grid" class="w-4 h-4"></i> Overview
+            </a>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-white/5 transition-colors text-sm">
+                <i data-lucide="building-2" class="w-4 h-4"></i> Accelerators
+            </a>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-white/5 transition-colors text-sm">
+                <i data-lucide="graduation-cap" class="w-4 h-4"></i> Uni Hubs
+            </a>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-white/5 transition-colors text-sm">
+                <i data-lucide="users" class="w-4 h-4"></i> Angel Networks
+            </a>
+        </nav>
+
+        <div class="p-4 border-t border-white/5">
+            <div class="glass-card p-4 rounded-xl">
+                <p class="text-[10px] font-bold text-slate-500 uppercase mb-2">System Status</p>
+                <div class="flex items-center gap-2 text-xs text-teal-400">
+                    <span class="h-2 w-2 rounded-full bg-teal-400 animate-pulse"></span>
+                    Live Sync Active
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-grow flex flex-col overflow-y-auto">
+        <!-- Header -->
+        <header class="h-20 border-b border-white/5 flex items-center justify-between px-8 bg-[#020617]/80 backdrop-blur-xl">
+            <h2 class="text-xl font-extrabold text-white">Partner Command Center</h2>
+            <div class="flex items-center gap-4">
+                <button onclick="window.location.reload()" class="p-2 glass-card rounded-lg text-slate-400 hover:text-white transition-colors">
+                    <i data-lucide="refresh-cw" class="w-5 h-5"></i>
+                </button>
+                <div class="flex items-center gap-3 pl-4 border-l border-white/10">
+                    <div class="text-right">
+                        <p class="text-xs font-bold text-white">Naga Admin</p>
+                        <p class="text-[10px] text-slate-500 uppercase">Superuser</p>
+                    </div>
+                    <div class="h-10 w-10 rounded-full bg-gradient-to-br from-blue-500 to-teal-500 p-0.5">
+                        <div class="h-full w-full rounded-full bg-[#020617] flex items-center justify-center font-bold text-xs text-blue-400">CS</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="p-8 space-y-8">
+            <!-- Top Stats -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-card p-6 rounded-3xl">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="h-10 w-10 bg-blue-500/10 rounded-xl flex items-center justify-center text-blue-400 border border-blue-500/20"><i data-lucide="target" class="w-5 h-5"></i></div>
+                        <span class="text-xs font-bold text-slate-500">Total Partners</span>
+                    </div>
+                    <p class="text-4xl font-black text-white">18</p>
+                    <p class="text-xs text-slate-500 mt-2">+3 Added today</p>
+                </div>
+                <div class="glass-card p-6 rounded-3xl">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="h-10 w-10 bg-teal-500/10 rounded-xl flex items-center justify-center text-teal-400 border border-teal-500/20"><i data-lucide="calendar" class="w-5 h-5"></i></div>
+                        <span class="text-xs font-bold text-slate-500">Live Cohorts</span>
+                    </div>
+                    <p class="text-4xl font-black text-white">4</p>
+                    <p class="text-xs text-slate-500 mt-2">Next: Techstars (Mar 9)</p>
+                </div>
+                <div class="glass-card p-6 rounded-3xl bg-gradient-to-br from-blue-600/10 to-transparent">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="h-10 w-10 bg-purple-500/10 rounded-xl flex items-center justify-center text-purple-400 border border-purple-500/20"><i data-lucide="trending-up" class="w-5 h-5"></i></div>
+                        <span class="text-xs font-bold text-slate-500">Est. Pipeline</span>
+                    </div>
+                    <p class="text-4xl font-black text-white">£12.4k</p>
+                    <p class="text-xs text-slate-500 mt-2">Based on current partner deal flow</p>
+                </div>
+            </div>
+
+            <!-- Main Lead Table -->
+            <div class="glass-card rounded-[2rem] overflow-hidden">
+                <div class="p-6 border-b border-white/5 flex items-center justify-between">
+                    <h3 class="font-bold text-white flex items-center gap-2">
+                        <i data-lucide="list" class="w-4 h-4 text-blue-400"></i> High-Value Targets
+                    </h3>
+                    <div class="flex gap-2">
+                        <input type="text" placeholder="Search targets..." class="bg-white/5 border border-white/10 rounded-lg px-4 py-1.5 text-xs text-white focus:outline-none focus:border-blue-500">
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="text-[10px] font-bold text-slate-500 uppercase tracking-widest bg-white/5">
+                                <th class="px-6 py-4">Organization</th>
+                                <th class="px-6 py-4">Key Contact</th>
+                                <th class="px-6 py-4">Opportunity</th>
+                                <th class="px-6 py-4">Status</th>
+                                <th class="px-6 py-4">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lead-table-body">
+                            <!-- Data injected by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            
+            // In a real app, we'd fetch this from partner_data.php
+            // For now, I'll hardcode the data we just found
+            const data = [
+                { org: "Techstars London", type: "Accelerator", contact: "Saalim Chowdhury", opp: "Spring Cohort (Starts Mar 9)", link: "https://www.techstars.com/accelerators/london", status: "pending" },
+                { org: "LSE Generate", type: "Uni Hub", contact: "LJ Silverman", opp: "New 2026 Fellowship", link: "https://www.lse.ac.uk/generate", status: "active" },
+                { org: "Antler UK", type: "Venture Builder", contact: "Jed Rose", opp: "Rolling Residency", link: "https://www.antler.co/london", status: "active" },
+                { org: "Tech Nation", type: "Network", contact: "Ops Team", opp: "Libra Deadline (Mar 17)", link: "https://technation.io/libra/", status: "pending" },
+                { org: "Cambridge Angels", type: "Angel Network", contact: "Simon Thorpe", opp: "Deep Tech Funding Rounds", link: "https://cambridgeangels.net/", status: "active" },
+                { org: "Bayes Launch Lab", type: "Business School", contact: "Ops Team", opp: "Fintech Accelerator", link: "https://www.bayes.city.ac.uk/", status: "active" }
+            ];
+
+            const tableBody = document.getElementById('lead-table-body');
+            
+            data.forEach(item => {
+                const tr = document.createElement('tr');
+                tr.className = "border-b border-white/5 hover:bg-white/5 transition-colors";
+                tr.innerHTML = `
+                    <td class="px-6 py-4">
+                        <p class="font-bold text-white text-sm">${item.org}</p>
+                        <p class="text-[10px] text-slate-500 uppercase">${item.type}</p>
+                    </td>
+                    <td class="px-6 py-4">
+                        <p class="text-sm text-slate-300">${item.contact}</p>
+                    </td>
+                    <td class="px-6 py-4">
+                        <p class="text-sm text-blue-400 font-medium">${item.opp}</p>
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="status-badge ${item.status === 'active' ? 'status-active' : 'status-pending'}">${item.status}</span>
+                    </td>
+                    <td class="px-6 py-4">
+                        <a href="${item.link}" target="_blank" class="h-8 w-8 glass-card rounded-lg flex items-center justify-center hover:bg-blue-600 transition-all">
+                            <i data-lucide="external-link" class="w-4 h-4"></i>
+                        </a>
+                    </td>
+                `;
+                tableBody.appendChild(tr);
+            });
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
