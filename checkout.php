@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 // Configuration
-$team_email = "hello@ellipsiscapital.co.uk"; // Notification goes here
+$team_email = "hello@ellipsiscapital.co.uk, c.soul@ellipsiscapital.co.uk, drjack@ellipsiscapital.co.uk"; // Notification goes here
 $from_email = "team@ellipsiscapital.co.uk";
 $stripe_url = "https://buy.stripe.com/00w4gy55G8tk7gV2oc7ss05"; // Launchpad Product Link
 $scheduler_url = "https://ellipsiscapital.co.uk/founders-launchpad/scheduler.html?name=" . urlencode($name) . "&email=" . urlencode($email) . "&company=" . urlencode($company);

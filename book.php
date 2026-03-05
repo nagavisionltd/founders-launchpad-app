@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 // Configuration
-$team_email = "hello@ellipsiscapital.co.uk";
+$team_email = "hello@ellipsiscapital.co.uk, c.soul@ellipsiscapital.co.uk, drjack@ellipsiscapital.co.uk";
 $from_email = "team@ellipsiscapital.co.uk";
 
 // Get JSON Input
