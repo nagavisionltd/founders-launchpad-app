@@ -193,11 +193,12 @@
                         <p class="text-[10px] text-slate-500 uppercase">${item.Type || 'Partner'}</p>
                     </td>
                     <td class="px-6 py-4">
-                        <p class="text-sm text-slate-300">${item['Contact Person'] || 'N/A'}</p>
-                        <p class="text-[10px] text-slate-500 truncate max-w-[150px] block" title="${item['Email/Link']}">${item['Email/Link'] || 'No email/link provided'}</p>
+                        <p class="text-sm text-slate-300 font-bold">${item['Contact Person'] || 'N/A'}</p>
+                        <p class="text-[11px] text-blue-400 mt-1 italic line-clamp-2 max-w-[250px] leading-relaxed">"${item.Notes || 'Strategic partner target for NagaVision.'}"</p>
                     </td>
                     <td class="px-6 py-4">
-                        <p class="text-sm text-blue-400 font-medium">${item.Opportunity || 'TBD'}</p>
+                        <p class="text-[10px] text-slate-500 mb-1 uppercase tracking-tight">Focus:</p>
+                        <p class="text-sm text-white font-medium">${item.Opportunity || 'TBD'}</p>
                     </td>
                     <td class="px-6 py-4">
                         <span id="status-badge-${id}" class="status-badge ${statusClass}">${displayStatus}</span>
