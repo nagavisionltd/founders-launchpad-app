@@ -152,18 +152,21 @@
     </main>
 
     <script>
+        // Default Webhook URL for n8n
+        const N8N_WEBHOOK_URL = "https://n8n.nagavision.uk/webhook/founders-pulse-outreach";
+
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
             
             // In a real app, we'd fetch this from partner_data.php
             // For now, I'll hardcode the data we just found
             const data = [
-                { org: "Techstars London", type: "Accelerator", contact: "Saalim Chowdhury", opp: "Spring Cohort (Starts Mar 9)", link: "https://www.techstars.com/accelerators/london", status: "pending" },
-                { org: "LSE Generate", type: "Uni Hub", contact: "LJ Silverman", opp: "New 2026 Fellowship", link: "https://www.lse.ac.uk/generate", status: "active" },
-                { org: "Antler UK", type: "Venture Builder", contact: "Jed Rose", opp: "Rolling Residency", link: "https://www.antler.co/london", status: "active" },
-                { org: "Tech Nation", type: "Network", contact: "Ops Team", opp: "Libra Deadline (Mar 17)", link: "https://technation.io/libra/", status: "pending" },
-                { org: "Cambridge Angels", type: "Angel Network", contact: "Simon Thorpe", opp: "Deep Tech Funding Rounds", link: "https://cambridgeangels.net/", status: "active" },
-                { org: "Bayes Launch Lab", type: "Business School", contact: "Ops Team", opp: "Fintech Accelerator", link: "https://www.bayes.city.ac.uk/", status: "active" }
+                { id: "techstars_1", org: "Techstars London", type: "Accelerator", contact: "Saalim Chowdhury", email: "saalim@techstars.example.com", opp: "Spring Cohort (Starts Mar 9)", link: "https://www.techstars.com/accelerators/london", status: "pending" },
+                { id: "lse_1", org: "LSE Generate", type: "Uni Hub", contact: "LJ Silverman", email: "lj@lse.example.ac.uk", opp: "New 2026 Fellowship", link: "https://www.lse.ac.uk/generate", status: "active" },
+                { id: "antler_1", org: "Antler UK", type: "Venture Builder", contact: "Jed Rose", email: "jed@antler.example.co", opp: "Rolling Residency", link: "https://www.antler.co/london", status: "active" },
+                { id: "technation_1", org: "Tech Nation", type: "Network", contact: "Ops Team", email: "ops@technation.example.io", opp: "Libra Deadline (Mar 17)", link: "https://technation.io/libra/", status: "pending" },
+                { id: "cambridge_1", org: "Cambridge Angels", type: "Angel Network", contact: "Simon Thorpe", email: "simon@cambridgeangels.example.net", opp: "Deep Tech Funding Rounds", link: "https://cambridgeangels.net/", status: "active" },
+                { id: "bayes_1", org: "Bayes Launch Lab", type: "Business School", contact: "Ops Team", email: "launchlab@bayes.example.ac.uk", opp: "Fintech Accelerator", link: "https://www.bayes.city.ac.uk/", status: "active" }
             ];
 
             const tableBody = document.getElementById('lead-table-body');
@@ -171,6 +174,13 @@
             data.forEach(item => {
                 const tr = document.createElement('tr');
                 tr.className = "border-b border-white/5 hover:bg-white/5 transition-colors";
+                
+                // Check if contacted in localStorage
+                const isContacted = localStorage.getItem(`contacted_${item.id}`);
+                const displayStatus = isContacted ? 'Contacted' : item.status;
+                const statusClass = isContacted ? 'bg-purple-500/10 text-purple-400 border border-purple-500/20' : 
+                                    (item.status === 'active' ? 'status-active' : 'status-pending');
+
                 tr.innerHTML = `
                     <td class="px-6 py-4">
                         <p class="font-bold text-white text-sm">${item.org}</p>
@@ -178,15 +188,22 @@
                     </td>
                     <td class="px-6 py-4">
                         <p class="text-sm text-slate-300">${item.contact}</p>
+                        <p class="text-[10px] text-slate-500">${item.email}</p>
                     </td>
                     <td class="px-6 py-4">
                         <p class="text-sm text-blue-400 font-medium">${item.opp}</p>
                     </td>
                     <td class="px-6 py-4">
-                        <span class="status-badge ${item.status === 'active' ? 'status-active' : 'status-pending'}">${item.status}</span>
+                        <span id="status-badge-${item.id}" class="status-badge ${statusClass}">${displayStatus}</span>
                     </td>
-                    <td class="px-6 py-4">
-                        <a href="${item.link}" target="_blank" class="h-8 w-8 glass-card rounded-lg flex items-center justify-center hover:bg-blue-600 transition-all">
+                    <td class="px-6 py-4 flex gap-2">
+                        <button onclick="sendOutreach('${item.id}', '${item.org}', '${item.contact}', '${item.email}')" 
+                                id="btn-outreach-${item.id}"
+                                class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${isContacted ? 'bg-slate-800 text-slate-500 cursor-not-allowed' : 'btn-premium text-white'}"
+                                ${isContacted ? 'disabled' : ''}>
+                            <span class="flex items-center gap-1"><i data-lucide="send" class="w-3 h-3"></i> ${isContacted ? 'Sent' : 'Outreach'}</span>
+                        </button>
+                        <a href="${item.link}" target="_blank" class="h-8 w-8 glass-card rounded-lg flex items-center justify-center hover:bg-blue-600 transition-all text-white">
                             <i data-lucide="external-link" class="w-4 h-4"></i>
                         </a>
                     </td>
@@ -195,6 +212,60 @@
             });
             lucide.createIcons();
         });
+
+        async function sendOutreach(id, org, contact, email) {
+            const btn = document.getElementById(`btn-outreach-${id}`);
+            const originalContent = btn.innerHTML;
+            
+            // Confirm outreach
+            if (!confirm(`Send outreach email to ${contact} at ${org}?`)) return;
+
+            // Loading state
+            btn.innerHTML = `<span class="flex items-center gap-1"><i data-lucide="loader" class="w-3 h-3 animate-spin"></i> Sending...</span>`;
+            btn.disabled = true;
+            lucide.createIcons();
+
+            try {
+                // Send to n8n webhook
+                const response = await fetch(N8N_WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: "send_outreach",
+                        contact_id: id,
+                        organization: org,
+                        contact_name: contact,
+                        contact_email: email,
+                        timestamp: new Date().toISOString(),
+                        source: "Founders Pulse Dashboard"
+                    })
+                });
+
+                // Assuming n8n responds successfully (even if it's just a 200 OK)
+                if (response.ok || response.type === 'opaque') { // opaque handles some no-cors setups
+                    // Update UI state
+                    localStorage.setItem(`contacted_${id}`, 'true');
+                    
+                    const badge = document.getElementById(`status-badge-${id}`);
+                    badge.textContent = 'Contacted';
+                    badge.className = 'status-badge bg-purple-500/10 text-purple-400 border border-purple-500/20';
+                    
+                    btn.className = "px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-slate-800 text-slate-500 cursor-not-allowed";
+                    btn.innerHTML = `<span class="flex items-center gap-1"><i data-lucide="check" class="w-3 h-3"></i> Sent</span>`;
+                    
+                    // Trigger a small toast/alert (simple browser alert for now)
+                    setTimeout(() => alert(`Outreach successfully sent to ${org} via n8n!`), 100);
+                } else {
+                    throw new Error("Network response was not ok");
+                }
+            } catch (error) {
+                console.error("Outreach failed:", error);
+                alert("Failed to send outreach. Please check if your n8n webhook is active and accessible.");
+                btn.innerHTML = originalContent;
+                btn.disabled = false;
+            }
+            lucide.createIcons();
+        }
     </script>
 </body>
 </html>
